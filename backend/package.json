@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
-    "dev": "set PORT=4000&& node --watch src/server.js",
+    "dev": "node --watch src/server.js",
     "start": "node src/server.js",
     "test": "node --test"
   },
