@@ -1,0 +1,36 @@
+services:
+  - type: web
+    runtime: node
+    name: campus-stock-api
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: DATABASE_URL
+        fromDatabase:
+          name: campus-stock-db
+          property: connectionString
+      - key: CLIENT_URL
+        sync: false
+
+  - type: web
+    runtime: static
+    name: campus-stock-frontend
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        sync: false
+
+databases:
+  - name: campus-stock-db
+    plan: free
+    databaseName: campus_stock
+    user: campus_stock_user
+    region: oregon
